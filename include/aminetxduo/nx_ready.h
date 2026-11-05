@@ -25,10 +25,9 @@
    select.c and tests/netsim include it without unused functions. */
 static UINT ami_nx_tcp_receive_ready(const NX_TCP_SOCKET *socket)
 {
-    const NX_PACKET *head = socket->nx_tcp_socket_receive_queue_head;
-
-    return (head != NX_NULL &&
-            head->nx_packet_queue_next == (NX_PACKET *)NX_PACKET_READY)
+    /* PROOF ONLY, not for merge: the old bsd_readable() test. */
+    return (socket->nx_tcp_socket_receive_queue_count > 0 ||
+            socket->nx_tcp_socket_receive_queue_head != NX_NULL)
                ? NX_TRUE : NX_FALSE;
 }
 
